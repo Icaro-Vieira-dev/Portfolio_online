@@ -12,8 +12,9 @@ Página com os projetos que desenvolvi durante meus estudos e minha trajetória 
 
 ## 🛠️ Feito com
 
-- **HTML** e **CSS** puros, sem frameworks
+- **HTML** e **CSS** puros, sem frameworks (e um pouquinho de **JavaScript** só para o contato)
 - O controle de videogame do card é desenhado **só com CSS**
+- Seção de **contato** (e-mail, LinkedIn e GitHub). O e-mail é montado por JavaScript, para não ficar exposto a robôs de spam no HTML
 - Fontes: [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) e [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)
 
 ## ▶️ Como ver

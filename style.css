@@ -265,6 +265,9 @@ body {
 
 /* ===== Sobre mim ===== */
 .sobre {
+  /* flex: 1 + min-width: 0 = pode encolher quando a tela é estreita, em vez de sair pela direita */
+  flex: 1;
+  min-width: 0;
   max-width: 420px;
   padding-top: 8px;
 }
@@ -307,6 +310,85 @@ body {
   color: transparent;
 }
 
+/* ===== Contato ===== */
+.contato {
+  margin-top: 44px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(124, 152, 255, .18);
+}
+
+.contato__titulo {
+  margin: 6px 0 18px;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.contato__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* mesmo estilo do botão do card: escuro com borda azul, degradê no hover */
+.contato__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(11, 22, 56, .7);
+  border: 1px solid rgba(124, 152, 255, .3);
+  color: var(--texto);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.contato__botao svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.contato__botao:hover,
+.contato__botao:focus-visible {
+  transform: translateY(-3px);
+  background: linear-gradient(90deg, var(--brilho-azul), var(--brilho-roxo));
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, .35);
+  outline: none;
+}
+
+.contato__copiar {
+  margin-top: 14px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--texto-suave);
+  cursor: pointer;
+  transition: color .2s ease;
+}
+
+.contato__copiar:hover,
+.contato__copiar:focus-visible {
+  color: var(--texto);
+  text-decoration: underline;
+  outline: none;
+}
+
+.contato__aviso {
+  display: block;
+  min-height: 1.2em;   /* reserva o espaço, para a página não "pular" quando o aviso aparece */
+  margin-top: 4px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: #5df2b0;
+}
+
 /* ===== Celular: "Sobre mim" vai para baixo dos projetos ===== */
 @media (max-width: 760px) {
   .pagina {
@@ -318,11 +400,13 @@ body {
   .projetos { justify-content: center; }
   .sobre { text-align: center; }
   .sobre__titulo { font-size: 36px; }
+  .contato__links { justify-content: center; }
 }
 
 /* quem pediu ao sistema menos animação não vê o movimento, só o brilho */
 @media (prefers-reduced-motion: reduce) {
-  .card, .card::after, .controle, .card__botao { transition: none; }
+  .card, .card::after, .controle, .card__botao, .contato__botao { transition: none; }
+  .contato__botao:hover, .contato__botao:focus-visible { transform: none; }
   .card:hover, .card:focus-visible { transform: none; }
   .card:hover .controle, .card:focus-visible .controle { transform: rotate(14deg); }
 }
