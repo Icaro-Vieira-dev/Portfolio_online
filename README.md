@@ -21,6 +21,10 @@ Página com os projetos que desenvolvi durante meus estudos e minha trajetória 
 
 Abra o arquivo `index.html` no navegador.
 
+## 🔄 Ao alterar o CSS ou o JavaScript
+
+No `index.html`, aumente o número em `style.css?v=4` e `script.js?v=4` (ex.: para `v=5`). O GitHub Pages pede que os navegadores guardem os arquivos por 10 minutos. Mudando o número, quem já visitou o site baixa a versão nova na hora.
+
 ## ➕ Como adicionar um projeto
 
 No `index.html`, copie o bloco `<a class="card">...</a>` inteiro e troque o link, o título, a descrição e as tags.
