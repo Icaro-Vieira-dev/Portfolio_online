@@ -272,6 +272,30 @@ body {
   padding-top: 8px;
 }
 
+.sobre__cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* foto redonda com anel em degradê: o "anel" é o fundo aparecendo no padding de 3px */
+.sobre__foto {
+  flex-shrink: 0;
+  width: 112px;
+  height: 112px;
+  padding: 3px;
+  border-radius: 50%;
+  object-fit: cover;   /* se um dia a foto não for quadrada, ela é recortada em vez de achatada */
+  background: linear-gradient(135deg, var(--brilho-azul), var(--brilho-roxo));
+  box-shadow: 0 0 26px rgba(139, 92, 246, .35);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.sobre__foto:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 36px rgba(139, 92, 246, .6);
+}
+
 .sobre__comentario {
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
@@ -399,13 +423,15 @@ body {
   }
   .projetos { justify-content: center; }
   .sobre { text-align: center; }
+  .sobre__cabecalho { flex-direction: column; gap: 14px; }
   .sobre__titulo { font-size: 36px; }
   .contato__links { justify-content: center; }
 }
 
 /* quem pediu ao sistema menos animação não vê o movimento, só o brilho */
 @media (prefers-reduced-motion: reduce) {
-  .card, .card::after, .controle, .card__botao, .contato__botao { transition: none; }
+  .card, .card::after, .controle, .card__botao, .contato__botao, .sobre__foto { transition: none; }
+  .sobre__foto:hover { transform: none; }
   .contato__botao:hover, .contato__botao:focus-visible { transform: none; }
   .card:hover, .card:focus-visible { transform: none; }
   .card:hover .controle, .card:focus-visible .controle { transform: rotate(14deg); }
