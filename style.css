@@ -1,0 +1,328 @@
+/* ===== Paleta (mude aqui para ajustar a página toda) ===== */
+:root {
+  --fundo: #050816;            /* azul quase preto */
+  --azul-escuro: #0b1638;
+  --azul-medio: #1c3f91;       /* o azul "um pouco mais claro, mas não tão claro" */
+  --roxo-escuro: #33125e;
+  --brilho-azul: #4f7cff;
+  --brilho-roxo: #8b5cf6;
+  --texto: #e6ebff;
+  --texto-suave: #8f9bc7;
+
+  --card-largura: 280px;
+  --card-altura: 440px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: var(--texto);
+  background-color: var(--fundo);
+  /* fundo "tecnológico": dois brilhos (azul e roxo) + uma grade bem sutil */
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(79, 124, 255, .22), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(139, 92, 246, .20), transparent 45%),
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+  background-size: auto, auto, 40px 40px, 40px 40px;
+}
+
+.pagina {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 32px;
+}
+
+/* ===== Projetos ===== */
+.projetos {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* ===== Card (a peça inteira é o link) ===== */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--card-largura);
+  height: var(--card-altura);
+  padding: 18px 20px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--texto);
+  /* degradê: azul escuro -> azul médio -> roxo escuro */
+  background: linear-gradient(160deg, var(--azul-escuro) 0%, var(--azul-medio) 50%, var(--roxo-escuro) 100%);
+  border: 1px solid rgba(124, 152, 255, .25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+/* grade "de circuito" dentro do card, bem fraquinha */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 75%);
+}
+
+/* faixa de luz que atravessa o card no hover */
+.card::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -120%;
+  width: 60%;
+  height: 200%;
+  z-index: -1;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .12), transparent);
+  transform: rotate(20deg);
+  transition: left .7s ease;
+}
+
+.card__topo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+}
+
+.card__status { color: #5df2b0; }
+
+.card__titulo {
+  margin-top: 26px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+/* "Library" com degradê azul -> roxo dentro das letras */
+.destaque {
+  background: linear-gradient(90deg, #7ea2ff, #b48cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card__descricao {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: auto;   /* empurra as tags e o botão para o rodapé do card */
+}
+
+.tag {
+  padding: 3px 9px;
+  border: 1px solid rgba(124, 152, 255, .35);
+  border-radius: 999px;
+  background: rgba(5, 8, 22, .35);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: #c3ceff;
+}
+
+.card__botao {
+  margin-top: 14px;
+  width: 100%;
+  padding: 11px 8px;
+  border-radius: 10px;
+  background: rgba(5, 8, 22, .75);
+  border: 1px solid rgba(124, 152, 255, .3);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  transition: background .3s ease, border-color .3s ease;
+}
+
+/* ===== Controle de videogame só com CSS =====
+   .controle        = a "moldura" que gira e brilha (não aparece sozinha)
+   ::before/::after = as duas pegadas, atrás
+   .controle__corpo = o corpo, na frente das pegadas
+   .controle__dpad  = o direcional (+ o ::before dele, formando uma cruz)
+   .controle__botoes = os 4 botões (1 bolinha + 3 cópias com box-shadow) */
+.controle {
+  position: relative;
+  margin-top: 44px;
+  width: 132px;
+  height: 66px;
+  filter: drop-shadow(0 0 14px rgba(79, 124, 255, .55));
+  transform: rotate(14deg);
+  transition: transform .35s ease, filter .35s ease;
+}
+
+.controle::before,
+.controle::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  width: 42px;
+  height: 58px;
+  border-radius: 22px;
+  background: #161f4a;
+  border: 1px solid rgba(160, 180, 255, .35);
+}
+.controle::before { left: 4px;  transform: rotate(24deg); }
+.controle::after  { right: 4px; transform: rotate(-24deg); }
+
+.controle__corpo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;   /* fica na frente das pegadas */
+  border-radius: 34px;
+  background: linear-gradient(180deg, #2a3f86, #1b2658);
+  border: 1px solid rgba(160, 180, 255, .35);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .12);
+}
+
+.controle__dpad,
+.controle__dpad::before {
+  position: absolute;
+  background: #0a102a;
+  border-radius: 2px;
+}
+.controle__dpad {
+  left: 22px;
+  top: 29px;
+  width: 26px;
+  height: 8px;
+}
+.controle__dpad::before {
+  content: "";
+  left: 9px;
+  top: -9px;
+  width: 8px;
+  height: 26px;
+}
+
+.controle__botoes {
+  position: absolute;
+  right: 36px;
+  top: 22px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #5df2b0;                  /* bolinha de cima */
+  box-shadow:
+    10px 10px 0 #ff6b9a,                /* direita */
+    -10px 10px 0 #4f7cff,               /* esquerda */
+    0 20px 0 #b48cff;                   /* baixo */
+}
+
+/* ===== Hover: "projeto escolhido" =====
+   o card inteiro sobe e cresce, a borda brilha, a faixa de luz passa
+   e o controle balança para o outro lado. Vale também para quem navega com Tab. */
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-10px) scale(1.03);
+  border-color: rgba(139, 92, 246, .8);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, .6), 0 20px 50px rgba(79, 124, 255, .35), 0 0 60px rgba(139, 92, 246, .25);
+  outline: none;
+}
+
+.card:hover::after,
+.card:focus-visible::after { left: 160%; }
+
+.card:hover .controle,
+.card:focus-visible .controle {
+  transform: rotate(-12deg) scale(1.08);
+  filter: drop-shadow(0 0 22px rgba(139, 92, 246, .8));
+}
+
+.card:hover .card__botao,
+.card:focus-visible .card__botao {
+  background: linear-gradient(90deg, var(--brilho-azul), var(--brilho-roxo));
+  border-color: transparent;
+}
+
+/* ===== Sobre mim ===== */
+.sobre {
+  max-width: 420px;
+  padding-top: 8px;
+}
+
+.sobre__comentario {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--brilho-azul);
+}
+
+.sobre__titulo {
+  margin: 6px 0 0;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  background: linear-gradient(90deg, #ffffff, #b9c6ff 60%, #b48cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sobre__texto {
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--texto-suave);
+}
+
+.sobre__texto strong {
+  color: var(--texto);
+  font-weight: 600;
+}
+
+/* a frase final ganha o mesmo degradê azul -> roxo do "Library" */
+.sobre__frase {
+  font-weight: 600;
+  background: linear-gradient(90deg, #7ea2ff, #b48cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== Celular: "Sobre mim" vai para baixo dos projetos ===== */
+@media (max-width: 760px) {
+  .pagina {
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    padding: 40px 16px;
+  }
+  .projetos { justify-content: center; }
+  .sobre { text-align: center; }
+  .sobre__titulo { font-size: 36px; }
+}
+
+/* quem pediu ao sistema menos animação não vê o movimento, só o brilho */
+@media (prefers-reduced-motion: reduce) {
+  .card, .card::after, .controle, .card__botao { transition: none; }
+  .card:hover, .card:focus-visible { transform: none; }
+  .card:hover .controle, .card:focus-visible .controle { transform: rotate(14deg); }
+}
